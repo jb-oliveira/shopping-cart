@@ -1,9 +1,5 @@
 package com.jb.api;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,14 +13,14 @@ public class Order {
         this.items = new ArrayList<>();
     }
 
-    public void addItem(String description, Double price, int quantity){
-        this.items.add( new OrderItem(description,price,quantity) );
+    public void addItem(String id, Double price, int quantity){
+        this.items.add( new OrderItem(id,price,quantity) );
     }
 
     public void validate() throws ApplicationException {
         cpf.validate();
         if( this.coupon != null && coupon.isExpired() ){
-            throw new ExpiredCouponException("Expired coupon");
+            throw new InvalidCouponException("Expired coupon");
         }
     }
 

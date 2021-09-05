@@ -6,7 +6,6 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class PlaceOrderInputItemDTO {
-    private String description;
-    private Double price;
+    private String itemId;
     private int quantity;
 }
