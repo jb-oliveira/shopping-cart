@@ -7,15 +7,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class ItemTest {
 
     @Test
-    void shouldCalculateItemVolume(){
-        Item item = new Item("1", "Amplificaodr", 5000.0, 50,50,50, 22);
+    void shouldCalculateItemVolume() {
+        Item item = new Item("1", "Amplificaodr", 5000.0, 50, 50, 50, 22.0);
         Double volume = item.getVolume();
-        assertEquals(volume, 0.125);
+        assertEquals(0.125, volume);
     }
+
     @Test
-    void shouldCalculateItemDensity(){
-        Item item = new Item("1", "Amplificaodr", 5000.0, 50,50,50, 22);
+    void shouldCalculateItemDensity() {
+        Item item = new Item("1", "Amplificaodr", 5000.0, 50, 50, 50, 22.0);
         Double density = item.getDensity();
-        assertEquals(density, 176.0);
+        assertEquals(176.0, density);
     }
 }

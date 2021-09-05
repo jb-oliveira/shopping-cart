@@ -23,7 +23,7 @@ public class OrderTest {
         order.addItem("Cabo", 30.0, 3);
         order.validate();
         Double total = order.getTotal();
-        assertEquals(total, 7090);
+        assertEquals(7090, total);
     }
 
     @Test
@@ -35,7 +35,7 @@ public class OrderTest {
         order.addCoupon(new Coupon("VALE20", 20.0, LocalDate.of(2021, 10, 10)));
         order.validate();
         Double total = order.getTotal();
-        assertEquals(total, 5672);
+        assertEquals(5672, total);
     }
 
     @Test

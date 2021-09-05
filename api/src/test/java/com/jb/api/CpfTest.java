@@ -8,8 +8,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class CpfTest {
 
     @Test
-    void validCpf(){
-        assertDoesNotThrow(()->{
+    void validCpf() {
+        assertDoesNotThrow(() -> {
             Cpf cpf = new Cpf("864.161.670-50");
             cpf.validate();
             cpf = new Cpf("591.249.610-43");
@@ -18,22 +18,14 @@ class CpfTest {
     }
 
     @Test
-    void invalidCpf(){
-        assertThrows(InvalidCpfException.class, ()->{
-            Cpf cpf = new Cpf("591.249.610-33");
-            cpf.validate();
-        });
-        assertThrows(InvalidCpfException.class, ()->{
-            Cpf cpf = new Cpf("111.111.111-11");
-            cpf.validate();
-        });
-        assertThrows(InvalidCpfException.class, ()->{
-            Cpf cpf = new Cpf("111.111-11");
-            cpf.validate();
-        });
-        assertThrows(InvalidCpfException.class, ()->{
-            Cpf cpf = new Cpf(null);
-            cpf.validate();
-        });
+    void invalidCpf() {
+        Cpf cpf = new Cpf("591.249.610-33");
+        assertThrows(InvalidCpfException.class, cpf::validate);
+        cpf = new Cpf("111.111.111-11");
+        assertThrows(InvalidCpfException.class, cpf::validate);
+        cpf = new Cpf("111.111-11");
+        assertThrows(InvalidCpfException.class, cpf::validate);
+        cpf = new Cpf(null);
+        assertThrows(InvalidCpfException.class, cpf::validate);
     }
 }
