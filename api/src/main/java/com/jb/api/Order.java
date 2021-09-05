@@ -10,6 +10,7 @@ import java.util.List;
 public class Order {
     private Cpf cpf;
     private List<OrderItem> items;
+    private Coupon coupon;
 
     public Order(String cpf) {
         this.cpf = new Cpf(cpf);
@@ -25,7 +26,15 @@ public class Order {
     }
 
     public Double getTotal(){
-        return this.items.stream().mapToDouble(OrderItem::getTotal).sum();
+        double total = this.items.stream().mapToDouble(OrderItem::getTotal).sum();
+        if( coupon != null ){
+            total -= (total*coupon.getPercent())/100;
+        }
+        return total;
+    }
+
+    public void addCoupon(Coupon coupon){
+        this.coupon = coupon;
     }
 }
 

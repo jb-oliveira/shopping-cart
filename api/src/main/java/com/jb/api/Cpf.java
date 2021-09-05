@@ -24,7 +24,9 @@ public class Cpf {
     private int calculateDigits(String cpfDigits, int factor, int max) {
         int total = 0;
         for (Character c : cpfDigits.substring(0, max).toCharArray()) {
-            total += Integer.valueOf(c) * factor--;
+            // transforma o caractere '0' no inteiro 0
+            // (48 eh a posicao de '0' na tabela ASCII)
+            total += (c - 48) * factor--;
         }
         int rest = total % 11;
         return (rest < 2) ? 0 : 11 - rest;

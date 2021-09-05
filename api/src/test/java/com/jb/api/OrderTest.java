@@ -26,4 +26,15 @@ public class OrderTest {
         Double total = order.getTotal();
         assertEquals(total, 7090);
     }
+
+    void shouldCreateOrderWithCoupon() throws InvalidCpfException {
+        Order order = new Order("864.161.670-50");
+        order.addItem("Guitarra",1000.0,2);
+        order.addItem("Amplificador",5000.0,1);
+        order.addItem("Cabo",30.0,3);
+        order.addCoupon(new Coupon("VALE20", 20.0));
+        order.validate();
+        Double total = order.getTotal();
+        assertEquals(total, 5672);
+    }
 }
