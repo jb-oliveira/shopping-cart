@@ -36,7 +36,7 @@ public class Cpf {
         return cpfDigits.substring(9);
     }
 
-    public void validate() throws InvalidCpfException {
+    public void validate() throws ApplicationException {
         if (value == null || value.isEmpty()) {
             throw new InvalidCpfException("Cpf cannot be empty");
         }
@@ -52,7 +52,7 @@ public class Cpf {
         String calculatedDigit = String.format("%d%d",dg1,dg2);
         String checkerDigit = this.extractCheckerDigit(cpfDigits);
         if(!calculatedDigit.equals(checkerDigit)){
-            throw new InvalidCpfException("Invalida check digits");
+            throw new InvalidCpfException("Invalid check digits");
         }
     }
 

@@ -21,8 +21,11 @@ public class Order {
         this.items.add( new OrderItem(description,price,quantity) );
     }
 
-    public void validate() throws InvalidCpfException {
+    public void validate() throws ApplicationException {
         cpf.validate();
+        if( this.coupon != null && coupon.isExpired() ){
+            throw new ExpiredCouponException("Expired coupon");
+        }
     }
 
     public Double getTotal(){

@@ -9,7 +9,7 @@ import java.util.List;
 public class PlaceOrderTest {
 
     @Test
-    void shouldPlaceOrder() throws InvalidCpfException {
+    void shouldPlaceOrder() throws ApplicationException {
         List<PlaceOrderInputItemDTO> inputItems = new ArrayList<>();
         inputItems.add( new PlaceOrderInputItemDTO("Guitarra",1000.0,2) );
         inputItems.add( new PlaceOrderInputItemDTO("Amplificador",5000.0,1) );
@@ -19,7 +19,6 @@ public class PlaceOrderTest {
         PlaceOrder placeOrder = new PlaceOrder();
         PlaceOrderOutputDTO outputDTO = placeOrder.execute(inputDTO);
         Assertions.assertEquals(outputDTO.getTotal(), 5672);
-
 
     }
 }
