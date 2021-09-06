@@ -34,10 +34,7 @@ public class PlaceOrder {
             Item item = this.items.stream()
                     .filter(i -> i.getId().equals(orderItem.getItemId()))
                     .findFirst()
-                    .orElse(null);
-            if (item == null) {
-                throw new InvalidItemException("Item not found");
-            }
+                    .orElseThrow(()-> new InvalidItemException("Item not found"));
             order.addItem(orderItem.getItemId(), item.getPrice(), orderItem.getQuantity());
             Double freight = FreightCalculator.calculate(distance, item) * orderItem.getQuantity();
             order.addFreight(freight);
@@ -46,10 +43,7 @@ public class PlaceOrder {
             Coupon coupon = this.coupons.stream()
                     .filter(c -> c.getDescription().equals(input.getCoupon()))
                     .findFirst()
-                    .orElse(null);
-            if (coupon == null) {
-                throw new InvalidCouponException("Coupon not found");
-            }
+                    .orElseThrow(() -> new InvalidCouponException("Coupon not found") );
             order.addCoupon(coupon);
         }
         order.validate();
