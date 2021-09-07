@@ -4,17 +4,21 @@ import com.jb.api.application.PlaceOrder;
 import com.jb.api.application.PlaceOrderImputDTO;
 import com.jb.api.application.PlaceOrderInputItemDTO;
 import com.jb.api.application.PlaceOrderOutputDTO;
+import com.jb.api.config.DatabaseConfig;
 import com.jb.api.domain.entity.Coupon;
 import com.jb.api.domain.entity.Item;
 import com.jb.api.domain.exception.DomainException;
 import com.jb.api.domain.repository.CouponRepository;
 import com.jb.api.domain.repository.ItemRepository;
+import com.jb.api.infra.repository.mongo.OrderDocumentRepository;
+import com.jb.api.infra.repository.mongo.OrderItemDocumentRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -27,7 +31,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @DataMongoTest
 @ExtendWith(SpringExtension.class)
-@Import({ExternalApisConfig.class, BeanConfiguration.class})
+@Import({ExternalApisConfig.class, DatabaseConfig.class})
+@ComponentScan("com.jb.api")
 public class PlaceOrderIntegrationTest {
 
     List<PlaceOrderInputItemDTO> inputItems;
@@ -41,9 +46,18 @@ public class PlaceOrderIntegrationTest {
     @Autowired
     PlaceOrder placeOrder;
 
+    @Autowired
+    OrderDocumentRepository orderDocumentRepository;
+
+    @Autowired
+    OrderItemDocumentRepository orderItemDocumentRepository;
+
 
     @BeforeEach
     void createItems() {
+        orderItemDocumentRepository.deleteAll();
+        orderDocumentRepository.deleteAll();
+        orderDocumentRepository.deleteAll();
         itemRepository.deleteAll();
         itemRepository.save(new Item("1", "Guitarra", 1000.0, 100, 50, 15, 3.0));
         itemRepository.save(new Item("2", "Amplificador", 5000.0, 50, 50, 50, 22.0));

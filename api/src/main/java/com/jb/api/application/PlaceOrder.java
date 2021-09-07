@@ -9,10 +9,13 @@ import com.jb.api.domain.exception.InvalidItemException;
 import com.jb.api.domain.gateway.ZipCodeCalculatorApi;
 import com.jb.api.domain.repository.CouponRepository;
 import com.jb.api.domain.repository.ItemRepository;
+import com.jb.api.domain.repository.OrderRepository;
+import com.jb.api.domain.repository.SequenceGenerator;
 import com.jb.api.domain.service.FreightCalculator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,15 +28,15 @@ public class PlaceOrder {
     private ItemRepository itemRepository;
     @Autowired
     private CouponRepository couponRepository;
+    @Autowired
+    private OrderRepository orderRepository;
+    @Autowired
+    private SequenceGenerator sequenceGenerator;
 
-    private List<Order> orders;
-
-    public PlaceOrder() {
-        this.orders = new ArrayList<>();
-    }
 
     public PlaceOrderOutputDTO execute(PlaceOrderImputDTO input) throws DomainException {
-        Order order = new Order(input.getCpf());
+        Long sequence = sequenceGenerator.generateId(LocalDate.now().getYear() + "_" + SequenceGenerator.ORDER_ANUAL_SEQUENCE);
+        Order order = new Order(input.getCpf(), sequence);
         Double distance = this.zipCodeCalculatorApi.distance(input.getZipCode(), "99.999-999");
         for (PlaceOrderInputItemDTO orderItem : input.getItems()) {
             Item item = this.itemRepository
@@ -50,7 +53,7 @@ public class PlaceOrder {
             order.addCoupon(coupon);
         }
         order.validate();
-        orders.add(order);
+        orderRepository.save(order);
         return new PlaceOrderOutputDTO(order.getTotal(), order.getFreight());
     }
 }
