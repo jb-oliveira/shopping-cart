@@ -1,4 +1,4 @@
-package com.jb.api;
+package com.jb.api.domain.entity;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +19,7 @@ public class Item {
     private final Double weight;
 
     public Double getVolume() {
-        return (this.width/100.0) * (this.height/100.0) * (this.length/100.0);
+        return (this.width / 100.0) * (this.height / 100.0) * (this.length / 100.0);
     }
 
     public Double getDensity() {

@@ -1,4 +1,7 @@
-package com.jb.api;
+package com.jb.api.domain.entity;
+
+import com.jb.api.domain.exception.ApplicationException;
+import com.jb.api.domain.exception.InvalidCouponException;
 
 import java.util.ArrayList;
 import java.util.List;

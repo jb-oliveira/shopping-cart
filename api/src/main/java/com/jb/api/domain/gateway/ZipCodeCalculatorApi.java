@@ -1,4 +1,4 @@
-package com.jb.api;
+package com.jb.api.domain.gateway;
 
 public interface ZipCodeCalculatorApi {
 

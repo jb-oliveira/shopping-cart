@@ -1,9 +1,18 @@
-package com.jb.api;
+package com.jb.api.application;
 
+import com.jb.api.domain.entity.Coupon;
+import com.jb.api.domain.entity.Item;
+import com.jb.api.domain.entity.Order;
+import com.jb.api.domain.exception.ApplicationException;
+import com.jb.api.domain.exception.InvalidCouponException;
+import com.jb.api.domain.exception.InvalidItemException;
+import com.jb.api.domain.gateway.ZipCodeCalculatorApi;
+import com.jb.api.domain.repository.CouponRepository;
+import com.jb.api.domain.repository.ItemRepository;
+import com.jb.api.domain.service.FreightCalculator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 

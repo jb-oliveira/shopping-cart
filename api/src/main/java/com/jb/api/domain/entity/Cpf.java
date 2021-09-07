@@ -1,5 +1,7 @@
-package com.jb.api;
+package com.jb.api.domain.entity;
 
+import com.jb.api.domain.exception.ApplicationException;
+import com.jb.api.domain.exception.InvalidCpfException;
 import lombok.Data;
 
 @Data
@@ -41,17 +43,17 @@ public class Cpf {
             throw new InvalidCpfException("Cpf cannot be empty");
         }
         String cpfDigits = this.onlyDigits();
-        if (this.isInvalidLength(cpfDigits)){
+        if (this.isInvalidLength(cpfDigits)) {
             throw new InvalidCpfException("Invalid length");
         }
-        if (this.allDigitsAreEqual(cpfDigits)){
+        if (this.allDigitsAreEqual(cpfDigits)) {
             throw new InvalidCpfException("All digits are equal");
         }
         int dg1 = this.calculateDigits(cpfDigits, 10, 9);
         int dg2 = this.calculateDigits(cpfDigits, 11, 10);
-        String calculatedDigit = String.format("%d%d",dg1,dg2);
+        String calculatedDigit = String.format("%d%d", dg1, dg2);
         String checkerDigit = this.extractCheckerDigit(cpfDigits);
-        if(!calculatedDigit.equals(checkerDigit)){
+        if (!calculatedDigit.equals(checkerDigit)) {
             throw new InvalidCpfException("Invalid check digits");
         }
     }

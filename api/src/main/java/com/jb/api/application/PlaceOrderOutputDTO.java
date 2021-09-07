@@ -1,4 +1,4 @@
-package com.jb.api;
+package com.jb.api.application;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

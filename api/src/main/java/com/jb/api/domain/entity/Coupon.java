@@ -1,4 +1,4 @@
-package com.jb.api;
+package com.jb.api.domain.entity;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

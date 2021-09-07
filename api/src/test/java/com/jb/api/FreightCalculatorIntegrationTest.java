@@ -1,11 +1,15 @@
 package com.jb.api;
 
+import com.jb.api.domain.entity.Item;
+import com.jb.api.domain.service.FreightCalculator;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class FreightCalculatorTest {
+public class FreightCalculatorIntegrationTest {
 
+    @DisplayName("Deve clacular o frete de um item")
     @Test
     void shouldCalculateFreightOfItem() {
         Item guitar = new Item("1", "Guitarra", 1000.0, 100, 50, 15, 3.0);

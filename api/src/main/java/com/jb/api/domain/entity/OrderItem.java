@@ -1,4 +1,4 @@
-package com.jb.api;
+package com.jb.api.domain.entity;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +10,7 @@ public class OrderItem {
     private final Double price;
     private final int quantity;
 
-    public Double getTotal(){
+    public Double getTotal() {
         return this.price * this.quantity;
     }
 }

@@ -1,12 +1,16 @@
 package com.jb.api;
 
+import com.jb.api.domain.entity.Cpf;
+import com.jb.api.domain.exception.InvalidCpfException;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class CpfTest {
+class CpfUnitTest {
 
+    @DisplayName("Deve aceitar cpf validos.")
     @Test
     void validCpf() {
         assertDoesNotThrow(() -> {
@@ -17,6 +21,7 @@ class CpfTest {
         });
     }
 
+    @DisplayName("Não permitir cpf invalidos")
     @Test
     void invalidCpf() {
         Cpf cpf = new Cpf("591.249.610-33");

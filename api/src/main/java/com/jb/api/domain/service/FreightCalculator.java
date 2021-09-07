@@ -1,4 +1,6 @@
-package com.jb.api;
+package com.jb.api.domain.service;
+
+import com.jb.api.domain.entity.Item;
 
 public class FreightCalculator {
 
