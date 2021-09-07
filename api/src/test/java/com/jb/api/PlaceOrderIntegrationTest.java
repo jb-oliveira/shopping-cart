@@ -6,7 +6,7 @@ import com.jb.api.application.PlaceOrderInputItemDTO;
 import com.jb.api.application.PlaceOrderOutputDTO;
 import com.jb.api.domain.entity.Coupon;
 import com.jb.api.domain.entity.Item;
-import com.jb.api.domain.exception.ApplicationException;
+import com.jb.api.domain.exception.DomainException;
 import com.jb.api.domain.repository.CouponRepository;
 import com.jb.api.domain.repository.ItemRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -61,7 +61,7 @@ public class PlaceOrderIntegrationTest {
 
     @DisplayName("Deve criar um pedido")
     @Test
-    void shouldPlaceOrder() throws ApplicationException {
+    void shouldPlaceOrder() throws DomainException {
         PlaceOrderImputDTO inputDTO = new PlaceOrderImputDTO();
         inputDTO.setCpf("864.161.670-50");
         inputDTO.setItems(inputItems);
@@ -74,7 +74,7 @@ public class PlaceOrderIntegrationTest {
 
     @DisplayName("Deve criar pedido com frete")
     @Test
-    void shouldPlaceOrderWithFreight() throws ApplicationException {
+    void shouldPlaceOrderWithFreight() throws DomainException {
         PlaceOrderImputDTO inputDTO = new PlaceOrderImputDTO();
         inputDTO.setCpf("864.161.670-50");
         inputDTO.setItems(inputItems);
@@ -91,7 +91,7 @@ public class PlaceOrderIntegrationTest {
         inputDTO.setItems(inputItems);
         inputDTO.setCoupon("VALE20_EXPIRED");
 
-        assertThrows(ApplicationException.class, () -> placeOrder.execute(inputDTO));
+        assertThrows(DomainException.class, () -> placeOrder.execute(inputDTO));
     }
 
     @DisplayName("Não deve permitir criar pedido com itens invalidos")
@@ -101,6 +101,6 @@ public class PlaceOrderIntegrationTest {
         inputDTO.setCpf("864.161.670-50");
         inputItems.add(new PlaceOrderInputItemDTO("-1", -1));
         inputDTO.setItems(inputItems);
-        assertThrows(ApplicationException.class, () -> placeOrder.execute(inputDTO));
+        assertThrows(DomainException.class, () -> placeOrder.execute(inputDTO));
     }
 }

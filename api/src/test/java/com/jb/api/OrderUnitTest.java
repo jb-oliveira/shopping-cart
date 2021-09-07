@@ -2,7 +2,7 @@ package com.jb.api;
 
 import com.jb.api.domain.entity.Coupon;
 import com.jb.api.domain.entity.Order;
-import com.jb.api.domain.exception.ApplicationException;
+import com.jb.api.domain.exception.DomainException;
 import com.jb.api.domain.exception.InvalidCpfException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -23,7 +23,7 @@ public class OrderUnitTest {
 
     @DisplayName("Deve criar um pedido com 3 itens")
     @Test
-    void shouldCreateOrderWhitThreeItems() throws ApplicationException {
+    void shouldCreateOrderWhitThreeItems() throws DomainException {
         Order order = new Order("864.161.670-50");
         order.addItem("Guitarra", 1000.0, 2);
         order.addItem("Amplificador", 5000.0, 1);
@@ -35,7 +35,7 @@ public class OrderUnitTest {
 
     @DisplayName("Deve criar um pedido com cupom")
     @Test
-    void shouldCreateOrderWithCoupon() throws ApplicationException {
+    void shouldCreateOrderWithCoupon() throws DomainException {
         Order order = new Order("864.161.670-50");
         order.addItem("Guitarra", 1000.0, 2);
         order.addItem("Amplificador", 5000.0, 1);
@@ -54,6 +54,6 @@ public class OrderUnitTest {
         order.addItem("Amplificador", 5000.0, 1);
         order.addItem("Cabo", 30.0, 3);
         order.addCoupon(new Coupon("VALE20", 20.0, LocalDate.of(2020, 10, 10)));
-        assertThrows(ApplicationException.class, order::validate);
+        assertThrows(DomainException.class, order::validate);
     }
 }

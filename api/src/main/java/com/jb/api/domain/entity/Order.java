@@ -1,6 +1,6 @@
 package com.jb.api.domain.entity;
 
-import com.jb.api.domain.exception.ApplicationException;
+import com.jb.api.domain.exception.DomainException;
 import com.jb.api.domain.exception.InvalidCouponException;
 
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ public class Order {
         this.items.add(new OrderItem(id, price, quantity));
     }
 
-    public void validate() throws ApplicationException {
+    public void validate() throws DomainException {
         cpf.validate();
         if (this.coupon != null && coupon.isExpired()) {
             throw new InvalidCouponException("Expired coupon");

@@ -1,6 +1,6 @@
 package com.jb.api.domain.entity;
 
-import com.jb.api.domain.exception.ApplicationException;
+import com.jb.api.domain.exception.DomainException;
 import com.jb.api.domain.exception.InvalidCpfException;
 import lombok.Data;
 
@@ -38,7 +38,7 @@ public class Cpf {
         return cpfDigits.substring(9);
     }
 
-    public void validate() throws ApplicationException {
+    public void validate() throws DomainException {
         if (value == null || value.isEmpty()) {
             throw new InvalidCpfException("Cpf cannot be empty");
         }

@@ -3,7 +3,7 @@ package com.jb.api.application;
 import com.jb.api.domain.entity.Coupon;
 import com.jb.api.domain.entity.Item;
 import com.jb.api.domain.entity.Order;
-import com.jb.api.domain.exception.ApplicationException;
+import com.jb.api.domain.exception.DomainException;
 import com.jb.api.domain.exception.InvalidCouponException;
 import com.jb.api.domain.exception.InvalidItemException;
 import com.jb.api.domain.gateway.ZipCodeCalculatorApi;
@@ -32,7 +32,7 @@ public class PlaceOrder {
         this.orders = new ArrayList<>();
     }
 
-    public PlaceOrderOutputDTO execute(PlaceOrderImputDTO input) throws ApplicationException {
+    public PlaceOrderOutputDTO execute(PlaceOrderImputDTO input) throws DomainException {
         Order order = new Order(input.getCpf());
         Double distance = this.zipCodeCalculatorApi.distance(input.getZipCode(), "99.999-999");
         for (PlaceOrderInputItemDTO orderItem : input.getItems()) {
