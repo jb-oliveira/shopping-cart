@@ -2,10 +2,14 @@ package com.jb.api;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 @Getter
 @RequiredArgsConstructor
+@Document
 public class Item {
+    @Id
     private final String id;
     private final String description;
     private final Double price;
