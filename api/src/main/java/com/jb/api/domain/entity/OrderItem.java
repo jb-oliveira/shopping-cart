@@ -8,8 +8,8 @@ import lombok.Setter;
 @RequiredArgsConstructor
 public class OrderItem {
     @Setter
-    private String id;
-    private final String itemId;
+    private Long id;
+    private final Long itemId;
     private final Double price;
     private final int quantity;
 

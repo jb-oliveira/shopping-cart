@@ -3,13 +3,13 @@ package com.jb.api.domain.entity;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.persistence.Entity;
 import java.time.LocalDate;
 
 @Getter
 @RequiredArgsConstructor
-@Document
+@Entity
 public class Coupon {
     @Id
     private final String id;

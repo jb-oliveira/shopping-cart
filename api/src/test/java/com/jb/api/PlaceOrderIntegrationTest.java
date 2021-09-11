@@ -10,8 +10,8 @@ import com.jb.api.domain.entity.Item;
 import com.jb.api.domain.exception.DomainException;
 import com.jb.api.domain.repository.CouponRepository;
 import com.jb.api.domain.repository.ItemRepository;
-import com.jb.api.infra.repository.mongo.OrderDocumentRepository;
-import com.jb.api.infra.repository.mongo.OrderItemDocumentRepository;
+import com.jb.api.infra.repository.jpa.OrderEntityRepository;
+import com.jb.api.infra.repository.jpa.OrderItemEntityRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -47,17 +47,17 @@ public class PlaceOrderIntegrationTest {
     PlaceOrder placeOrder;
 
     @Autowired
-    OrderDocumentRepository orderDocumentRepository;
+    OrderEntityRepository orderEntityRepository;
 
     @Autowired
-    OrderItemDocumentRepository orderItemDocumentRepository;
+    OrderItemEntityRepository orderItemEntityRepository;
 
 
     @BeforeEach
     void createItems() {
-        orderItemDocumentRepository.deleteAll();
-        orderDocumentRepository.deleteAll();
-        orderDocumentRepository.deleteAll();
+        orderItemEntityRepository.deleteAll();
+        orderEntityRepository.deleteAll();
+        orderEntityRepository.deleteAll();
         itemRepository.deleteAll();
         itemRepository.save(new Item("1", "Guitarra", 1000.0, 100, 50, 15, 3.0));
         itemRepository.save(new Item("2", "Amplificador", 5000.0, 50, 50, 50, 22.0));
@@ -67,9 +67,9 @@ public class PlaceOrderIntegrationTest {
         couponRepository.save(new Coupon("VALE20_EXPIRED", 20.0, LocalDate.of(2020, 10, 10)));
 
         inputItems = new ArrayList<>();
-        inputItems.add(new PlaceOrderInputItemDTO("1", 2));
-        inputItems.add(new PlaceOrderInputItemDTO("2", 1));
-        inputItems.add(new PlaceOrderInputItemDTO("3", 3));
+        inputItems.add(new PlaceOrderInputItemDTO(1l, 2));
+        inputItems.add(new PlaceOrderInputItemDTO(2l, 1));
+        inputItems.add(new PlaceOrderInputItemDTO(3l, 3));
     }
 
 
@@ -113,7 +113,7 @@ public class PlaceOrderIntegrationTest {
     void shouldNotAllowPlaceOrderWithInvalidItem() {
         PlaceOrderImputDTO inputDTO = new PlaceOrderImputDTO();
         inputDTO.setCpf("864.161.670-50");
-        inputItems.add(new PlaceOrderInputItemDTO("-1", -1));
+        inputItems.add(new PlaceOrderInputItemDTO(-1l, -1));
         inputDTO.setItems(inputItems);
         assertThrows(DomainException.class, () -> placeOrder.execute(inputDTO));
     }

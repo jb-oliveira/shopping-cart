@@ -4,7 +4,6 @@ import com.jb.api.domain.exception.DomainException;
 import com.jb.api.domain.exception.InvalidCouponException;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -13,7 +12,7 @@ import java.util.List;
 @Getter
 public class Order {
     @Setter
-    private String id;
+    private Long id;
     private Cpf cpf;
     private List<OrderItem> items;
     private Coupon coupon;
@@ -30,8 +29,8 @@ public class Order {
         this.freight = 0.0;
     }
 
-    public void addItem(String id, Double price, int quantity) {
-        this.items.add(new OrderItem(id, price, quantity));
+    public void addItem(Long itemId, Double price, int quantity) {
+        this.items.add(new OrderItem(itemId, price, quantity));
     }
 
     public void validate() throws DomainException {

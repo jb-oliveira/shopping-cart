@@ -25,9 +25,9 @@ public class OrderUnitTest {
     @Test
     void shouldCreateOrderWhitThreeItems() throws DomainException {
         Order order = new Order("864.161.670-50", 1L);
-        order.addItem("Guitarra", 1000.0, 2);
-        order.addItem("Amplificador", 5000.0, 1);
-        order.addItem("Cabo", 30.0, 3);
+        order.addItem(1l, 1000.0, 2);
+        order.addItem(2l, 5000.0, 1);
+        order.addItem(3l, 30.0, 3);
         order.validate();
         Double total = order.getTotal();
         assertEquals(7090, total);
@@ -37,9 +37,9 @@ public class OrderUnitTest {
     @Test
     void shouldCreateOrderWithCoupon() throws DomainException {
         Order order = new Order("864.161.670-50", 1L);
-        order.addItem("Guitarra", 1000.0, 2);
-        order.addItem("Amplificador", 5000.0, 1);
-        order.addItem("Cabo", 30.0, 3);
+        order.addItem(1l, 1000.0, 2);
+        order.addItem(2l, 5000.0, 1);
+        order.addItem(3l, 30.0, 3);
         order.addCoupon(new Coupon("VALE20", 20.0, LocalDate.of(2021, 10, 10)));
         order.validate();
         Double total = order.getTotal();
@@ -50,9 +50,9 @@ public class OrderUnitTest {
     @Test
     void shouldNotCreateOrderWithExpiredCoupon()  {
         Order order = new Order("864.161.670-50", 1L);
-        order.addItem("Guitarra", 1000.0, 2);
-        order.addItem("Amplificador", 5000.0, 1);
-        order.addItem("Cabo", 30.0, 3);
+        order.addItem(1l, 1000.0, 2);
+        order.addItem(2l, 5000.0, 1);
+        order.addItem(3l, 30.0, 3);
         order.addCoupon(new Coupon("VALE20", 20.0, LocalDate.of(2020, 10, 10)));
         assertThrows(DomainException.class, order::validate);
     }
@@ -61,9 +61,9 @@ public class OrderUnitTest {
     @Test
     void shouldCreateOrderCalculatingCode()  {
         Order order = new Order("864.161.670-50", 1L);
-        order.addItem("Guitarra", 1000.0, 2);
-        order.addItem("Amplificador", 5000.0, 1);
-        order.addItem("Cabo", 30.0, 3);
+        order.addItem(1l, 1000.0, 2);
+        order.addItem(2l, 5000.0, 1);
+        order.addItem(3l, 30.0, 3);
         order.addCoupon(new Coupon("VALE20", 20.0, LocalDate.of(2020, 10, 10)));
         assertEquals("2021000000001", order.getCode() );
     }
