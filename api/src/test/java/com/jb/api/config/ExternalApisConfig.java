@@ -1,4 +1,4 @@
-package com.jb.api;
+package com.jb.api.config;
 
 import com.jb.api.domain.gateway.ZipCodeCalculatorApi;
 import org.springframework.boot.test.context.TestConfiguration;

@@ -1,9 +1,6 @@
-package com.jb.api;
+package com.jb.api.application;
 
-import com.jb.api.application.PlaceOrder;
-import com.jb.api.application.PlaceOrderImputDTO;
-import com.jb.api.application.PlaceOrderInputItemDTO;
-import com.jb.api.application.PlaceOrderOutputDTO;
+import com.jb.api.config.ExternalApisConfig;
 import com.jb.api.config.DatabaseConfig;
 import com.jb.api.domain.entity.Coupon;
 import com.jb.api.domain.entity.Item;
@@ -32,7 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @DataMongoTest
 @ExtendWith(SpringExtension.class)
 @Import({ExternalApisConfig.class, DatabaseConfig.class})
-@ComponentScan("com.jb.api")
+@ComponentScan("com.jb.api.config")
 public class PlaceOrderIntegrationTest {
 
     List<PlaceOrderInputItemDTO> inputItems;

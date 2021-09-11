@@ -99,13 +99,13 @@
             <plugin>
                 <groupId>org.flywaydb</groupId>
                 <artifactId>flyway-maven-plugin</artifactId>
-                <version>4.0.3</version>
+                <version>7.15.0</version>
                 <configuration>
-                    <url>jdbc:postgres://localhost:5432/api?createDatabaseIfNotExist=true</url>
-                    <user>postgres</user>
-                    <password>123456</password>
+                    <url>jdbc:postgresql://localhost:5432/api</url>
+                    <user>api_user</user>
+                    <password>api_user</password>
                     <driver>org.postgresql.Driver</driver>
-                    <locations>filesystem:db/migration</locations>
+                    <locations>classpath:db/migrations</locations>
                 </configuration>
             </plugin>
             <plugin>

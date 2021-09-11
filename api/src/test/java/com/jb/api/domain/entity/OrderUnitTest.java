@@ -1,4 +1,4 @@
-package com.jb.api;
+package com.jb.api.domain.entity;
 
 import com.jb.api.domain.entity.Coupon;
 import com.jb.api.domain.entity.Order;
