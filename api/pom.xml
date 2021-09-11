@@ -101,10 +101,6 @@
                 <artifactId>flyway-maven-plugin</artifactId>
                 <version>7.15.0</version>
                 <configuration>
-                    <url>jdbc:postgresql://localhost:5432/api</url>
-                    <user>api_user</user>
-                    <password>api_user</password>
-                    <driver>org.postgresql.Driver</driver>
                     <locations>classpath:db/migrations</locations>
                 </configuration>
             </plugin>
