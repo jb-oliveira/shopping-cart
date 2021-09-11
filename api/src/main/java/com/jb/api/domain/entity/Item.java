@@ -4,14 +4,11 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.annotation.Id;
 
-import javax.persistence.Entity;
-
 @Getter
 @RequiredArgsConstructor
-@Entity
 public class Item {
     @Id
-    private final String id;
+    private final Long id;
     private final String description;
     private final Double price;
     private final int width;

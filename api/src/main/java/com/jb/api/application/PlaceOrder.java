@@ -35,7 +35,7 @@ public class PlaceOrder {
 
 
     public PlaceOrderOutputDTO execute(PlaceOrderImputDTO input) throws DomainException {
-        Long sequence = sequenceGenerator.generateId(LocalDate.now().getYear() + "_" + SequenceGenerator.ORDER_ANUAL_SEQUENCE);
+        Long sequence = sequenceGenerator.generateId(SequenceGenerator.ORDER_ANUAL_SEQUENCE+ "_" + LocalDate.now().getYear());
         Order order = new Order(input.getCpf(), sequence);
         Double distance = this.zipCodeCalculatorApi.distance(input.getZipCode(), "99.999-999");
         for (PlaceOrderInputItemDTO orderItem : input.getItems()) {
