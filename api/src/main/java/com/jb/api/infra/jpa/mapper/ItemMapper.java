@@ -5,7 +5,7 @@ import com.jb.api.infra.jpa.entity.ItemJpa;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface ItemMapperJpa {
+public interface ItemMapper {
 
     Item fromJpa(ItemJpa jpa);
 

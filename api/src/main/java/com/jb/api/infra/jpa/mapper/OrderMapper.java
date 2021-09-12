@@ -6,10 +6,11 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
-public interface OrderMapperJpa {
+public interface OrderMapper {
 
     @Mapping(source = "coupon.code", target = "couponId")
     @Mapping(source = "cpf.value", target = "cpf")
+    @Mapping(source = "orderCode.value", target = "code")
     OrderJpa fromOrder(Order order);
 
 }

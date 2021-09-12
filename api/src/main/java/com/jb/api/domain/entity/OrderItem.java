@@ -1,11 +1,13 @@
 package com.jb.api.domain.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @RequiredArgsConstructor
+@AllArgsConstructor
 public class OrderItem {
     @Setter
     private Long id;

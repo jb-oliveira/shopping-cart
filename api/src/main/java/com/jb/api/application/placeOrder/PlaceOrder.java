@@ -1,4 +1,4 @@
-package com.jb.api.application;
+package com.jb.api.application.placeOrder;
 
 import com.jb.api.domain.entity.Coupon;
 import com.jb.api.domain.entity.Item;

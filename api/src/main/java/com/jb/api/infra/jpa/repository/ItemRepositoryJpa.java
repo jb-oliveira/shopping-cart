@@ -3,7 +3,7 @@ package com.jb.api.infra.jpa.repository;
 import com.jb.api.domain.entity.Item;
 import com.jb.api.domain.repository.ItemRepository;
 import com.jb.api.infra.jpa.entity.ItemJpa;
-import com.jb.api.infra.jpa.mapper.ItemMapperJpa;
+import com.jb.api.infra.jpa.mapper.ItemMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -18,7 +18,7 @@ public class ItemRepositoryJpa implements ItemRepository {
     private ItemRepositoryTemplate repository;
 
     @Autowired
-    private ItemMapperJpa mapper;
+    private ItemMapper mapper;
 
     @Override
     public Optional<Item> findById(Long id) {

@@ -12,11 +12,20 @@ public class OrderJpa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private String code;
+
     private String cpf;
+
     @Column(name = "coupon_code")
     private String couponId;
+
     private LocalDate issueDate;
+
     @Column(name = "serial")
     private Long sequence;
+
+    private Double freight;
+
 
 }

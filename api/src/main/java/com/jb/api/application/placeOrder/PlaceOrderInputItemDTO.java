@@ -1,4 +1,4 @@
-package com.jb.api.application;
+package com.jb.api.application.placeOrder;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

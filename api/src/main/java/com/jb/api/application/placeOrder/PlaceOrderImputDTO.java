@@ -1,8 +1,6 @@
-package com.jb.api.application;
+package com.jb.api.application.placeOrder;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.List;
