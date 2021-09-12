@@ -17,16 +17,21 @@ public class Order {
     private List<OrderItem> items;
     private Coupon coupon;
     private LocalDate issueDate;
-    private String code;
+    private OrderCode orderCode;
     private Double freight;
     private Long sequence;
 
     public Order(String cpf, Long sequence) {
+        this(cpf, LocalDate.now(), sequence);
+    }
+
+    public Order(String cpf, LocalDate issueDate, Long sequence) {
         this.cpf = new Cpf(cpf);
         this.items = new ArrayList<>();
-        this.issueDate = LocalDate.now();
+        this.issueDate = issueDate;
         this.sequence = sequence;
         this.freight = 0.0;
+        this.orderCode = new OrderCode(issueDate,sequence);
     }
 
     public void addItem(Long itemId, Double price, int quantity) {
@@ -59,10 +64,6 @@ public class Order {
 
     public Double getFreight() {
         return freight;
-    }
-
-    public String getCode() {
-        return String.format("%d%09d", this.issueDate.getYear(), this.sequence);
     }
 }
 

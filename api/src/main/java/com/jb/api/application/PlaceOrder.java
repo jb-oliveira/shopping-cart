@@ -16,8 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 @Component
 public class PlaceOrder {
@@ -32,11 +30,13 @@ public class PlaceOrder {
     private OrderRepository orderRepository;
     @Autowired
     private SequenceGenerator sequenceGenerator;
+    @Autowired
+    private PlaceOrderMapper mapper;
 
 
     public PlaceOrderOutputDTO execute(PlaceOrderImputDTO input) throws DomainException {
         Long sequence = sequenceGenerator.generateId(SequenceGenerator.ORDER_ANUAL_SEQUENCE+ "_" + LocalDate.now().getYear());
-        Order order = new Order(input.getCpf(), sequence);
+        Order order = new Order(input.getCpf(), input.getIssueDate(), sequence);
         Double distance = this.zipCodeCalculatorApi.distance(input.getZipCode(), "99.999-999");
         for (PlaceOrderInputItemDTO orderItem : input.getItems()) {
             Item item = this.itemRepository
@@ -54,6 +54,6 @@ public class PlaceOrder {
         }
         order.validate();
         orderRepository.save(order);
-        return new PlaceOrderOutputDTO(order.getTotal(), order.getFreight());
+        return this.mapper.toOutputDto(order);
     }
 }
