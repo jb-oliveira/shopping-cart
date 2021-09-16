@@ -1,8 +1,10 @@
 package com.jb.api.infra.jpa.repository;
 
 import com.jb.api.domain.entity.Coupon;
+import com.jb.api.domain.entity.Cpf;
 import com.jb.api.domain.entity.Order;
 import com.jb.api.domain.exception.InvalidCouponException;
+import com.jb.api.domain.exception.InvalidCpfException;
 import com.jb.api.domain.repository.CouponRepository;
 import com.jb.api.domain.repository.OrderRepository;
 import com.jb.api.infra.jpa.entity.OrderItemJpa;
@@ -44,17 +46,17 @@ public class OrderRepositoryJpa implements OrderRepository {
     }
 
     @Override
-    public Optional<Order> findByCode(String code) {
+    public Optional<Order> findByCode(String code) throws InvalidCpfException {
         OrderJpa orderJpa = this.orderTemplate.findBycode(code);
-        if( orderJpa == null){
+        if (orderJpa == null) {
             return Optional.empty();
         }
-        Order order = new Order(orderJpa.getCpf(), orderJpa.getIssueDate(), orderJpa.getSequence());
+        Order order = new Order(Cpf.parseCpf(orderJpa.getCpf()), orderJpa.getIssueDate(), orderJpa.getSequence());
         order.setId(orderJpa.getId());
         order.addFreight(orderJpa.getFreight());
         List<OrderItemJpa> itemJpas = this.orderItemTemplate.findByOrderId(orderJpa.getId());
-        itemJpas.forEach(itemJpa -> order.addItem(itemJpa.getItemId(),itemJpa.getPrice(),itemJpa.getQuantity()));
-        if( orderJpa.getCouponId() != null ){
+        itemJpas.forEach(itemJpa -> order.addItem(itemJpa.getItemId(), itemJpa.getPrice(), itemJpa.getQuantity()));
+        if (orderJpa.getCouponId() != null) {
             Optional<Coupon> coupon = this.couponRepository.findById(orderJpa.getCouponId());
             coupon.ifPresent(order::addCoupon);
         }

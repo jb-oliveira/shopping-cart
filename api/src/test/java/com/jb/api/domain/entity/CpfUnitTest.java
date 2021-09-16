@@ -14,23 +14,19 @@ class CpfUnitTest {
     @Test
     void validCpf() {
         assertDoesNotThrow(() -> {
-            Cpf cpf = new Cpf("864.161.670-50");
-            cpf.validate();
-            cpf = new Cpf("591.249.610-43");
-            cpf.validate();
+            Cpf.parseCpf("864.161.670-50");
+            Cpf.parseCpf("591.249.610-43");
+            Cpf.parseCpf("35895349404");
+            Cpf.parseCpf("19822251491");
         });
     }
 
     @DisplayName("Não permitir cpf invalidos")
     @Test
     void invalidCpf() {
-        Cpf cpf = new Cpf("591.249.610-33");
-        assertThrows(InvalidCpfException.class, cpf::validate);
-        cpf = new Cpf("111.111.111-11");
-        assertThrows(InvalidCpfException.class, cpf::validate);
-        cpf = new Cpf("111.111-11");
-        assertThrows(InvalidCpfException.class, cpf::validate);
-        cpf = new Cpf(null);
-        assertThrows(InvalidCpfException.class, cpf::validate);
+        assertThrows(InvalidCpfException.class, () -> Cpf.parseCpf("591.249.610-33"));
+        assertThrows(InvalidCpfException.class, () -> Cpf.parseCpf("111.111.111-11"));
+        assertThrows(InvalidCpfException.class, () -> Cpf.parseCpf("111.111-11"));
+        assertThrows(InvalidCpfException.class, () -> Cpf.parseCpf(null));
     }
 }

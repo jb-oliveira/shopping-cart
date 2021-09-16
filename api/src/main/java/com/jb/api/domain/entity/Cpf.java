@@ -3,27 +3,52 @@ package com.jb.api.domain.entity;
 import com.jb.api.domain.exception.DomainException;
 import com.jb.api.domain.exception.InvalidCpfException;
 import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
-@Data
+@Getter
 public class Cpf {
 
     private final String value;
 
-
-    private String onlyDigits() {
-        return value.replaceAll("[^0-9]", "");
+    private Cpf(String value) {
+        this.value = value;
     }
 
-    private boolean isInvalidLength(String cpfDigits) {
-        return cpfDigits.length() != 11;
+
+    public static Cpf parseCpf(String cpf) throws InvalidCpfException {
+        if (cpf == null || cpf.isEmpty()) {
+            throw new InvalidCpfException("Cpf cannot be empty");
+        }
+        String cpfDigits = cpf.replaceAll("[^0-9]", "");
+        if (cpfDigits.length() != 11) {
+            throw new InvalidCpfException("Invalid length");
+        }
+        if (allDigitsAreEqual(cpfDigits)) {
+            throw new InvalidCpfException("All digits are equal");
+        }
+        int dg1 = calculateDigits(cpfDigits, 10, 9);
+        int dg2 = calculateDigits(cpfDigits, 11, 10);
+        String calculatedDigit = String.format("%d%d", dg1, dg2);
+        String checkerDigit = extractCheckerDigit(cpfDigits);
+        if (!calculatedDigit.equals(checkerDigit)) {
+            throw new InvalidCpfException("Invalid check digits");
+        }
+        return new Cpf(cpfDigits);
     }
 
-    private boolean allDigitsAreEqual(String cpfDigits) {
+
+    private static boolean allDigitsAreEqual(String cpfDigits) {
         char firstChar = cpfDigits.charAt(0);
-        return cpfDigits.lastIndexOf(firstChar) != 0;
+        for (Character c : cpfDigits.toCharArray()) {
+            if (!c.equals(firstChar)) {
+                return false;
+            }
+        }
+        return true;
     }
 
-    private int calculateDigits(String cpfDigits, int factor, int max) {
+    private static int calculateDigits(String cpfDigits, int factor, int max) {
         int total = 0;
         for (Character c : cpfDigits.substring(0, max).toCharArray()) {
             // transforma o caractere '0' no inteiro 0
@@ -34,28 +59,9 @@ public class Cpf {
         return (rest < 2) ? 0 : 11 - rest;
     }
 
-    private String extractCheckerDigit(String cpfDigits) {
+    private static String extractCheckerDigit(String cpfDigits) {
         return cpfDigits.substring(9);
     }
 
-    public void validate() throws DomainException {
-        if (value == null || value.isEmpty()) {
-            throw new InvalidCpfException("Cpf cannot be empty");
-        }
-        String cpfDigits = this.onlyDigits();
-        if (this.isInvalidLength(cpfDigits)) {
-            throw new InvalidCpfException("Invalid length");
-        }
-        if (this.allDigitsAreEqual(cpfDigits)) {
-            throw new InvalidCpfException("All digits are equal");
-        }
-        int dg1 = this.calculateDigits(cpfDigits, 10, 9);
-        int dg2 = this.calculateDigits(cpfDigits, 11, 10);
-        String calculatedDigit = String.format("%d%d", dg1, dg2);
-        String checkerDigit = this.extractCheckerDigit(cpfDigits);
-        if (!calculatedDigit.equals(checkerDigit)) {
-            throw new InvalidCpfException("Invalid check digits");
-        }
-    }
 
 }

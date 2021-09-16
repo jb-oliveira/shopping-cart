@@ -21,12 +21,12 @@ public class Order {
     private Double freight;
     private Long sequence;
 
-    public Order(String cpf, Long sequence) {
+    public Order(Cpf cpf, Long sequence) {
         this(cpf, LocalDate.now(), sequence);
     }
 
-    public Order(String cpf, LocalDate issueDate, Long sequence) {
-        this.cpf = new Cpf(cpf);
+    public Order(Cpf cpf, LocalDate issueDate, Long sequence) {
+        this.cpf = cpf;
         this.items = new ArrayList<>();
         this.issueDate = issueDate;
         this.sequence = sequence;
@@ -39,7 +39,6 @@ public class Order {
     }
 
     public void validate() throws DomainException {
-        cpf.validate();
         if (this.coupon != null && coupon.isExpired()) {
             throw new InvalidCouponException("Expired coupon");
         }
