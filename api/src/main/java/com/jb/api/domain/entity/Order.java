@@ -1,6 +1,6 @@
 package com.jb.api.domain.entity;
 
-import com.jb.api.domain.exception.DomainException;
+import com.jb.api.domain.exception.BaseException;
 import com.jb.api.domain.exception.InvalidCouponException;
 import lombok.Getter;
 import lombok.Setter;
@@ -38,7 +38,7 @@ public class Order {
         this.items.add(new OrderItem(itemId, price, quantity));
     }
 
-    public void validate() throws DomainException {
+    public void validate() throws BaseException {
         if (this.coupon != null && coupon.isExpired()) {
             throw new InvalidCouponException("Expired coupon");
         }

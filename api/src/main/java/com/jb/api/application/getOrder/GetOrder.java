@@ -4,7 +4,7 @@ import com.jb.api.application.exception.InvalidOrderException;
 import com.jb.api.domain.entity.Item;
 import com.jb.api.domain.entity.Order;
 import com.jb.api.domain.entity.OrderItem;
-import com.jb.api.domain.exception.DomainException;
+import com.jb.api.domain.exception.BaseException;
 import com.jb.api.domain.exception.InvalidItemException;
 import com.jb.api.domain.repository.CouponRepository;
 import com.jb.api.domain.repository.ItemRepository;
@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.Optional;
 
 @Component
 public class GetOrder {
@@ -26,7 +25,7 @@ public class GetOrder {
     private OrderRepository orderRepository;
 
 
-    public GetOrderOutputDTO execute(String code) throws DomainException {
+    public GetOrderOutputDTO execute(String code) throws BaseException {
         Order order = this.orderRepository
                 .findByCode(code)
                 .orElseThrow(() -> new InvalidOrderException(code));

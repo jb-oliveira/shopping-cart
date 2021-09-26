@@ -20,10 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @ExtendWith(SpringExtension.class)
-@DataJpaTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public abstract class AbstractOrderIntegrationTest {
-    List<PlaceOrderInputItemDTO> inputItems;
+    protected List<PlaceOrderInputItemDTO> inputItems;
 
     @Autowired
     ItemRepository itemRepository;
@@ -38,7 +36,7 @@ public abstract class AbstractOrderIntegrationTest {
     @BeforeEach
     void createItems() {
         JdbcTestUtils.deleteFromTables(jdbcTemplate, "ccca.item", "ccca.order_item", "ccca.order", "ccca.coupon");
-        String sequenceName =  SequenceGenerator.ORDER_ANUAL_SEQUENCE+ "_" + LocalDate.now().getYear();
+        String sequenceName = SequenceGenerator.ORDER_ANUAL_SEQUENCE + "_" + LocalDate.now().getYear();
         jdbcTemplate.execute("ALTER SEQUENCE " + sequenceName + " RESTART WITH 1;");
         itemRepository.save(new Item(1L, "Guitarra", 1000.0, 100, 50, 15, 3.0));
         itemRepository.save(new Item(2L, "Amplificador", 5000.0, 50, 50, 50, 22.0));

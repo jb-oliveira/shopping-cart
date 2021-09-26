@@ -1,8 +1,6 @@
 package com.jb.api.domain.exception;
 
-import java.util.function.Supplier;
-
-public class InvalidItemException extends DomainException  {
+public class InvalidItemException extends BaseException {
     public InvalidItemException(String message) {
         super(message);
     }

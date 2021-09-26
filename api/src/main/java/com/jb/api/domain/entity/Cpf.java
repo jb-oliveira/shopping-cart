@@ -1,10 +1,7 @@
 package com.jb.api.domain.entity;
 
-import com.jb.api.domain.exception.DomainException;
 import com.jb.api.domain.exception.InvalidCpfException;
-import lombok.Data;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 @Getter
 public class Cpf {

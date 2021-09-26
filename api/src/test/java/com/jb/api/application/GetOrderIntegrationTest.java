@@ -9,11 +9,13 @@ import com.jb.api.application.placeOrder.PlaceOrderOutputDTO;
 import com.jb.api.config.ApplicationConfig;
 import com.jb.api.config.DatabaseConfig;
 import com.jb.api.config.ExternalApisConfig;
-import com.jb.api.domain.exception.DomainException;
+import com.jb.api.domain.exception.BaseException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
 
@@ -22,6 +24,8 @@ import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Import({ExternalApisConfig.class, DatabaseConfig.class, ApplicationConfig.class})
+@DataJpaTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ComponentScan( { "com.jb.api.infra", "com.jb.api.config" })
 public class GetOrderIntegrationTest extends AbstractOrderIntegrationTest {
 
@@ -34,7 +38,7 @@ public class GetOrderIntegrationTest extends AbstractOrderIntegrationTest {
 
     @Test
     @DisplayName("Deve consultar um pedido")
-    void shoulConsultOrder() throws DomainException {
+    void shoulConsultOrder() throws BaseException {
         PlaceOrderImputDTO inputDTO = new PlaceOrderImputDTO();
         inputDTO.setCpf("864.161.670-50");
         inputDTO.setItems(inputItems);

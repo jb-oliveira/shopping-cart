@@ -4,7 +4,7 @@ import com.jb.api.domain.entity.Coupon;
 import com.jb.api.domain.entity.Cpf;
 import com.jb.api.domain.entity.Item;
 import com.jb.api.domain.entity.Order;
-import com.jb.api.domain.exception.DomainException;
+import com.jb.api.domain.exception.BaseException;
 import com.jb.api.domain.exception.InvalidCouponException;
 import com.jb.api.domain.exception.InvalidItemException;
 import com.jb.api.domain.gateway.ZipCodeCalculatorApi;
@@ -35,7 +35,7 @@ public class PlaceOrder {
     private PlaceOrderMapper mapper;
 
 
-    public PlaceOrderOutputDTO execute(PlaceOrderImputDTO input) throws DomainException {
+    public PlaceOrderOutputDTO execute(PlaceOrderImputDTO input) throws BaseException {
         Long sequence = sequenceGenerator.generateId(SequenceGenerator.ORDER_ANUAL_SEQUENCE+ "_" + LocalDate.now().getYear());
         Order order = new Order(Cpf.parseCpf( input.getCpf() ), input.getIssueDate(), sequence);
         Double distance = this.zipCodeCalculatorApi.distance(input.getZipCode(), "99.999-999");
