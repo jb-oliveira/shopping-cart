@@ -91,4 +91,18 @@ public class PlaceOrderIntegrationTest extends AbstractOrderIntegrationTest {
         PlaceOrderOutputDTO outputDTO = placeOrder.execute(inputDTO);
         assertEquals(outputDTO.getCode(), String.format("%d%09d", inputDTO.getIssueDate().getYear(), 2));
     }
+
+    @Test
+    @DisplayName("Deve criar um pedido calculando os impostos")
+    void shouldPlaceOrderWithTaxes() throws BaseException {
+        PlaceOrderImputDTO inputDTO = new PlaceOrderImputDTO();
+        inputDTO.setCpf("864.161.670-50");
+        inputDTO.setItems(inputItems);
+        inputDTO.setCoupon("VALE20");
+        inputDTO.setIssueDate(LocalDate.of(2021, 1, 1));
+        PlaceOrderOutputDTO outputDTO = placeOrder.execute(inputDTO);
+        // items prices + freight
+        assertEquals(1054.5, outputDTO.getTaxes());
+
+    }
 }

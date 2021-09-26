@@ -1,11 +1,13 @@
 package com.jb.api.domain.entity;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.annotation.Id;
 
 @Getter
 @RequiredArgsConstructor
+@Builder
 public class Item {
     @Id
     private final Long id;

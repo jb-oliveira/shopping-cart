@@ -11,4 +11,5 @@ public class PlaceOrderOutputDTO {
     private String code;
     private Double total;
     private Double freight;
+    private Double taxes;
 }

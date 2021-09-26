@@ -29,7 +29,7 @@ public class GetOrder {
         Order order = this.orderRepository
                 .findByCode(code)
                 .orElseThrow(() -> new InvalidOrderException(code));
-        GetOrderOutputDTO outputDTO = new GetOrderOutputDTO(order.getOrderCode().getValue(), order.getFreight(), order.getTotal(), new ArrayList<>());
+        GetOrderOutputDTO outputDTO = new GetOrderOutputDTO(order.getOrderCode().getValue(), order.getFreight(), order.getTotal(), new ArrayList<>(), order.getTaxes());
         for (OrderItem orderItem : order.getItems()) {
             Item item = this.itemRepository
                     .findById(orderItem.getItemId())

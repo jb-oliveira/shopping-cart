@@ -20,8 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class OrderControllerIntegrationTest
-{
+public class OrderControllerIntegrationTest {
 
     @Autowired
     private WebTestClient webTestClient;
@@ -30,8 +29,8 @@ public class OrderControllerIntegrationTest
     private JdbcTemplate jdbcTemplate;
 
     @BeforeEach
-    void cleanTables(){
-        JdbcTestUtils.deleteFromTables(jdbcTemplate, "ccca.order_item", "ccca.order" );
+    void cleanTables() {
+        JdbcTestUtils.deleteFromTables(jdbcTemplate, "ccca.order_item", "ccca.order");
         String sequenceName = SequenceGenerator.ORDER_ANUAL_SEQUENCE + "_" + LocalDate.now().getYear();
         jdbcTemplate.execute("ALTER SEQUENCE " + sequenceName + " RESTART WITH 1;");
     }
@@ -50,7 +49,7 @@ public class OrderControllerIntegrationTest
     public void getOrderTest() {
         PlaceOrderImputDTO inputDTO = new PlaceOrderImputDTO();
         inputDTO.setCpf("864.161.670-50");
-        List<PlaceOrderInputItemDTO>  inputItems = new ArrayList<>();
+        List<PlaceOrderInputItemDTO> inputItems = new ArrayList<>();
         inputItems.add(new PlaceOrderInputItemDTO(1L, 2));
         inputItems.add(new PlaceOrderInputItemDTO(2L, 1));
         inputItems.add(new PlaceOrderInputItemDTO(3L, 3));
@@ -58,7 +57,7 @@ public class OrderControllerIntegrationTest
         inputDTO.setCoupon("VALE20");
         inputDTO.setIssueDate(LocalDate.of(2021, 1, 1));
 
-        PlaceOrderOutputDTO result = new PlaceOrderOutputDTO(String.format("%d%09d", inputDTO.getIssueDate().getYear(), 1), 5672.0 + 310.0, 310.0);
+        PlaceOrderOutputDTO result = new PlaceOrderOutputDTO(String.format("%d%09d", inputDTO.getIssueDate().getYear(), 1), 5672.0 + 310.0, 310.0, 1054.5);
 
         webTestClient.post().uri("/api/V1/orders/")
                 .contentType(MediaType.APPLICATION_JSON)

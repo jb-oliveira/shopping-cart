@@ -20,6 +20,7 @@ public class Order {
     private OrderCode orderCode;
     private Double freight;
     private Long sequence;
+    private Double taxes;
 
     public Order(Cpf cpf, Long sequence) {
         this(cpf, LocalDate.now(), sequence);
@@ -32,6 +33,7 @@ public class Order {
         this.sequence = sequence;
         this.freight = 0.0;
         this.orderCode = new OrderCode(issueDate,sequence);
+        this.taxes = 0.0;
     }
 
     public void addItem(Long itemId, Double price, int quantity) {
@@ -63,6 +65,10 @@ public class Order {
 
     public Double getFreight() {
         return freight;
+    }
+
+    public void addTax(Double tax) {
+        taxes += tax;
     }
 }
 
