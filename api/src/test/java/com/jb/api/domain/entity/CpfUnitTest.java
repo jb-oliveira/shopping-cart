@@ -1,6 +1,5 @@
 package com.jb.api.domain.entity;
 
-import com.jb.api.domain.entity.Cpf;
 import com.jb.api.domain.exception.InvalidCpfException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

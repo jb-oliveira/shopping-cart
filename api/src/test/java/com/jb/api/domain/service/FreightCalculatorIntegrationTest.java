@@ -1,7 +1,6 @@
 package com.jb.api.domain.service;
 
 import com.jb.api.domain.entity.Item;
-import com.jb.api.domain.service.FreightCalculator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

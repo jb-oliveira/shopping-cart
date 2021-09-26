@@ -1,24 +1,15 @@
 package com.jb.api.infra;
 
-import com.jb.api.application.AbstractOrderIntegrationTest;
-import com.jb.api.application.getOrder.GetOrderOutputDTO;
-import com.jb.api.application.placeOrder.PlaceOrder;
 import com.jb.api.application.placeOrder.PlaceOrderImputDTO;
 import com.jb.api.application.placeOrder.PlaceOrderInputItemDTO;
 import com.jb.api.application.placeOrder.PlaceOrderOutputDTO;
-import com.jb.api.domain.exception.BaseException;
 import com.jb.api.domain.repository.SequenceGenerator;
-import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.jdbc.JdbcTestUtils;
 import org.springframework.test.web.reactive.server.WebTestClient;
@@ -27,10 +18,6 @@ import reactor.core.publisher.Mono;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class OrderControllerIntegrationTest
